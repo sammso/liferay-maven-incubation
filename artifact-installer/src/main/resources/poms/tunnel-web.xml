@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>@portal.group.id@</groupId>
 	<artifactId>tunnel-web</artifactId>
-	<packaging>war</packaging>
-	<name>Liferay Tunnel Web<</name>
+	<name>Liferay Tunnel Web</name>
 	<version>@version@</version>
+	<packaging>war</packaging>
 	<description>Contains the remote endpoints for the portal services.</description>
 	<url>http://www.liferay.com</url>
 	<developers>

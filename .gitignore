@@ -8,3 +8,5 @@ target/
 **/.classpath
 .DS_Store
 **/.DS_Store
+
+/artifact-installer/src/main/resources/installer.sohlmans.properties
