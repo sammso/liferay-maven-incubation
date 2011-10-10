@@ -30,7 +30,7 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:svn://svn.liferay.com/repos/public/portal/trunk/portal-service</connection>
-		<url>http://guest:guest@svn.liferay.com/repos/public/portal/trunk/portal-service</url>
+		<connection>scm:svn:svn://svn.liferay.com/repos/public/portal/trunk/portal-kernel</connection>
+		<url>http://guest:guest@svn.liferay.com/repos/public/portal/trunk/portal-kernel</url>
 	</scm>
 </project>
