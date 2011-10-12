@@ -5,7 +5,9 @@ maven repository or remote maven repository.
 Download the Liferay tomcat bundle and source code and extract them to a directory.
 Then edit installer.<username>.properties to set the path to you tomcat directory,
 Liferay portal source directory and Liferay version number. This installer is 
-compatible with any Liferay 6.x release including EE. 
+compatible with any Liferay 5.x release including EE. 
+
+The maven plugins are compatible only with 6.1.x 
 
 run ant install-liferay-artifacts to install artifacts to local maven repository.
 
