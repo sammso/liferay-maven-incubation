@@ -714,22 +714,77 @@
 			<delete dir="${work.dir}" />
 	</target>
 	
-	<target name="prepare-maven-plugin-artifacts">
-		
-	</target>
-	
-	<target name="debug">
-				<exec dir="." executable="${maven.executable}" failonerror="true">
-					<arg value="deploy:deploy-file" />
-					<arg value="-DartifactId=c3p0" />
-					<arg value="-Dfile=E:\development\liferay\5.1 sp4\source\lib\development\c3p0.jar" />
-					<arg value="-DgroupId=liferay.internal" />
-					<arg value="-Dpackaging=jar" />
-					<arg value="-DpomFile=E:\development\omat\liferay-maven\liferay-maven-incubation\artifact-installer\src\main\resources\tmp\c3p0-internal.pom" />
-					<arg value="-DrepositoryId=liferay" />
-					<arg value="-Durl=http://localhost:8081/nexus/content/repositories/liferay" />
-					<arg value="-Dversion=5.1-sp4" />
-				</exec>		
+	<target name="prepare-poms">
+			<echo>changing groupId com.liferay.portal to ${lp.portal.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]portal&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.portal.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}/../../../../.">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>
+			<echo>changing groupId com.liferay.maven to ${lp.maven.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]maven&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.maven.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}/../../../../.">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>			
+			
+			<echo>changing groupId com.liferay.maven.archetypes to ${lp.maven.archetypes.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]maven[.]archetypes&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.maven.archetypes.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}/../../../../.">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>
+			
+			
+			<echo>changing groupId com.liferay.maven.plugins to ${lp.maven.plugins.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]maven[.]archetypes&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.maven.plugins.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}/../../../../.">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>
+
+			
+			<echo>changing groupId com.liferay.portal to ${lp.portal.group.id} *.java files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="[&quot;]com[.]liferay.portal" />
+				<substitution expression="&quot;${lp.portal.group.id}" />
+				<fileset dir="${project.dir}/../../../../.">
+					<include name="**/*.java" />
+				</fileset>
+			</replaceregexp>
+			
+		<echo>Change Liferay &lt;version&gt;..&lt;/version&gt; to &lt;version&gt;${lp.version.maven}&lt;/version&gt; at pom.xml files</echo>
+		<replaceregexp byline="false"  flags="g">
+			<regexp pattern="(?s)(&lt;groupId&gt;liferay.*?&lt;version&gt;).*?-SNAPSHOT&lt;/version&gt;" />
+			<substitution expression="\1${lp.version.maven}&lt;/version&gt;" />
+			<fileset dir="${project.dir}/../../../../.">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>
+		<echo>Change Liferay &lt;liferay.version&gt;..&lt;/liferay.version&gt; to ${lp.version.maven} at pom.xml files</echo>
+		<replaceregexp byline="true"  flags="g">
+			<regexp pattern="&lt;liferay.version&gt;.*&lt;/liferay.version&gt;" />
+			<substitution expression="&lt;liferay.version&gt;${lp.version.maven}&lt;/liferay.version&gt;" />
+			<fileset dir="${project.dir}/../../../../.">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>
+		<echo>removing maven-gpg-plugin plugin from pom.xml files</echo>
+		<replaceregexp byline="false"  flags="g">
+			<regexp pattern="(?s)&lt;plugin&gt;\s*&lt;artifactId&gt;maven-gpg-plugin&lt;/artifactId&gt;.*?&lt;/plugin&gt;" />
+			<substitution expression="" />
+			<fileset dir="${project.dir}/../../../../.">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>			
 	</target>
 	
 </project>
