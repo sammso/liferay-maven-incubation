@@ -14,29 +14,8 @@
 
 package com.liferay.maven.plugins;
 
-import com.liferay.portal.bean.BeanLocatorImpl;
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
-import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
-import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.tools.deploy.ExtDeployer;
-import com.liferay.portal.tools.deploy.HookDeployer;
-import com.liferay.portal.tools.deploy.LayoutTemplateDeployer;
-import com.liferay.portal.tools.deploy.PortletDeployer;
-import com.liferay.portal.tools.deploy.ThemeDeployer;
-import com.liferay.portal.tools.deploy.WebDeployer;
-import com.liferay.portal.util.FastDateFormatFactoryImpl;
-import com.liferay.portal.util.FileImpl;
-import com.liferay.portal.util.HtmlImpl;
-import com.liferay.portal.util.InitUtil;
-import com.liferay.portal.util.PortalImpl;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.xml.SAXReaderImpl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +25,29 @@ import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
+
+import com.liferay.maven.plugins.deployers.HookDeployer;
+import com.liferay.maven.plugins.deployers.LayoutTemplateDeployer;
+import com.liferay.maven.plugins.deployers.PortletDeployer;
+import com.liferay.maven.plugins.deployers.ThemeDeployer;
+import com.liferay.maven.plugins.deployers.WebDeployer;
+import com.liferay.portal.bean.BeanLocatorImpl;
+import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.util.FastDateFormatFactoryImpl;
+import com.liferay.portal.util.FileImpl;
+import com.liferay.portal.util.HtmlImpl;
+import com.liferay.portal.util.InitUtil;
+import com.liferay.portal.util.PortalImpl;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.xml.SAXReaderImpl;
 
 /**
  * @author Mika Koivisto
@@ -95,11 +92,11 @@ public class PluginDirectDeployerMojo extends AbstractMojo {
 			workDir.getAbsolutePath() + "/WEB-INF/lib");
 
 		initPortal();
-
+/*
 		if (pluginType.equals("ext")) {
 			deployExt();
 		}
-		else if (pluginType.equals("hook")) {
+		else*/ if (pluginType.equals("hook")) {
 			deployHook();
 		}
 		else if (pluginType.equals("layouttpl")) {
@@ -115,7 +112,7 @@ public class PluginDirectDeployerMojo extends AbstractMojo {
 			deployWeb();
 		}
 	}
-
+/*
 	protected void deployExt() throws Exception {
 		List<String> wars = new ArrayList<String>();
 
@@ -127,7 +124,7 @@ public class PluginDirectDeployerMojo extends AbstractMojo {
 
 		new ExtDeployer(wars, jars);
 	}
-
+*/
 	protected void deployHook() throws Exception {
 		List<String> wars = new ArrayList<String>();
 
@@ -243,7 +240,7 @@ public class PluginDirectDeployerMojo extends AbstractMojo {
 
 	protected void preparePortalDependencies() throws Exception {
 		Artifact artifact = artifactFactory.createArtifact(
-			"com.liferay.portal", "portal-web", liferayVersion, "", "war");
+			"liferay.portal", "portal-web", liferayVersion, "", "war");
 
 		artifactResolver.resolve(
 			artifact, remoteArtifactRepositories, localArtifactRepository);

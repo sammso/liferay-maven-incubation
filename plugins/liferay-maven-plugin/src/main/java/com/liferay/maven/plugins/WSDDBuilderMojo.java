@@ -14,16 +14,6 @@
 
 package com.liferay.maven.plugins;
 
-import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
-import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.tools.WSDDBuilder;
-import com.liferay.portal.util.FastDateFormatFactoryImpl;
-import com.liferay.portal.util.FileImpl;
-import com.liferay.portal.util.HtmlImpl;
-import com.liferay.portal.xml.SAXReaderImpl;
-
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -33,6 +23,16 @@ import java.net.URLClassLoader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+
+import com.liferay.maven.plugins.compatibility.WSDDBuilder;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.util.FastDateFormatFactoryImpl;
+import com.liferay.portal.util.FileImpl;
+import com.liferay.portal.util.HtmlImpl;
+import com.liferay.portal.xml.SAXReaderImpl;
 
 /**
  * @author Mika Koivisto

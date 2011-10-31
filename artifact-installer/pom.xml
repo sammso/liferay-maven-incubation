@@ -8,7 +8,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.liferay.maven</groupId>
 	<artifactId>artifact-installer</artifactId>
 	<packaging>pom</packaging>
 	<name>Liferay Maven 2 Artifact Installer</name>
@@ -17,7 +16,6 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<phase>package</phase>

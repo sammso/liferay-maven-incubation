@@ -41,7 +41,9 @@ public class LangBuilderMojo extends AbstractMojo {
 	}
 
 	protected void doExecute() throws Exception {
-		new LangBuilder(langDir, langFile, langCode);
+		// Older
+		//new LangBuilder(langDir, langFile, langCode);
+		new LangBuilder(langDir, langFile, true);
 	}
 
 	protected void initPortal() {

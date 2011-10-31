@@ -53,7 +53,7 @@ public class ThemeMergeMojo extends AbstractMojo {
 			workDir.mkdirs();
 		}
 
-		String parentThemeGroupId = "com.liferay.portal";
+		String parentThemeGroupId = "liferay.portal";
 		String parentThemeArtifactId = "portal-web";
 		String parentThemeVersion = liferayVersion;
 

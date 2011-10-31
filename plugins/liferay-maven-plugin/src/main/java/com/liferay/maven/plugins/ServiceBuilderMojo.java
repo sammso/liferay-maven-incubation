@@ -14,21 +14,12 @@
 
 package com.liferay.maven.plugins;
 
-import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.tools.servicebuilder.ServiceBuilder;
-import com.liferay.portal.util.InitUtil;
-import com.liferay.portal.util.PropsUtil;
-
 import java.io.File;
-
+import java.io.IOException;
 import java.lang.reflect.Method;
-
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +32,12 @@ import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenCommandLineBuilder;
+
+import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.tools.servicebuilder.ServiceBuilder;
+import com.liferay.portal.util.InitUtil;
+import com.liferay.portal.util.PropsUtil;
 
 /**
  * Builds Liferay Service Builder services.
@@ -63,7 +60,7 @@ public class ServiceBuilderMojo extends AbstractMojo {
 		}
 	}
 
-	protected void copyServicePropertiesFile() {
+	protected void copyServicePropertiesFile() throws IOException {
 		File servicePropertiesFile = new File(
 			resourcesDir, "service.properties");
 
@@ -85,9 +82,9 @@ public class ServiceBuilderMojo extends AbstractMojo {
 		getLog().info("Building from " + serviceFileName);
 
 		PropsUtil.set("spring.configs", "META-INF/service-builder-spring.xml");
-		PropsUtil.set(
-			PropsKeys.RESOURCE_ACTIONS_READ_PORTLET_RESOURCES, "false");
-
+		// TODO 6.1
+		//PropsUtil.set(PropsKeys.RESOURCE_ACTIONS_READ_PORTLET_RESOURCES, "false");
+		//
 		InitUtil.initWithSpring();
 
 		copyServicePropertiesFile();
@@ -114,7 +111,10 @@ public class ServiceBuilderMojo extends AbstractMojo {
 				FileUtil.copyFile(serviceFile, tempServiceFile);
 			}
 		}
-
+		
+		// 5.1
+		//new ServiceBuilder(serviceFileName, hbmFileName, modelHintsFileName, springFileName, springBaseFileName, springDynamicDataSourceFileName, springHibernateFileName, springInfrastructureFileName, apiDir, implDir, jsonFileName, remotingFileName, sqlDir, sqlFileName, sqlIndexesFileName, sqlIndexesPropertiesFileName, sqlSequencesFileName, autoNamespaceTables, beanLocatorUtil, propsUtil, pluginName, null);
+		
 		new ServiceBuilder(
 			serviceFileName, hbmFileName, ormFileName, modelHintsFileName,
 			springFileName, springBaseFileName, null,
@@ -124,7 +124,7 @@ public class ServiceBuilderMojo extends AbstractMojo {
 			sqlFileName, sqlIndexesFileName, sqlIndexesPropertiesFileName,
 			sqlSequencesFileName, autoNamespaceTables, beanLocatorUtil,
 			propsUtil, pluginName, null);
-
+		
 		if (tempServiceFile != null) {
 			FileUtil.delete(tempServiceFile);
 		}

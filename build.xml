@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+Script is based on liferay build-maven.xml
+-->
+<project name="build-custom-maven" default="default" xmlns:antelope="antlib:ise.antelope.tasks">
+	<property environment="env" />
+
+	<property file="${project.dir}/installer.${user.name}.properties" />
+	<property file="${project.dir}/installer.${env.COMPUTERNAME}.properties" />
+	<property file="${project.dir}/installer.${env.HOST}.properties" />
+	<property file="${project.dir}/installer.${env.HOSTNAME}.properties" />
+	<property file="${project.dir}/installer.properties" />
+	<path id="lib.classpath">
+		<fileset dir="${lp.tomcat.lib.global.dir}" includes="*.jar" />
+		<fileset dir="${lp.source.dir}/lib/development" includes="*.jar" />
+		<fileset dir="${lp.tomcat.lib.global.dir}/../" includes="*.jar" />
+		<fileset dir="${lp.tomcat.portal.dir}/WEB-INF/lib" includes="*.jar" />
+	</path>
+	<taskdef classpathref="lib.classpath" resource="net/sf/antcontrib/antlib.xml" />
+	<taskdef classpathref="lib.classpath" resource="ise/antelope/tasks/antlib.xml" uri="antlib:ise.antelope.tasks" />	
+
+	<!--
+	target implementations
+-->
+
+	<target name="default">
+		<echo>
+				Please set atleast following properites on build-custom-maven.xml
+				
+				This has to be located on Liferay source directory
+				
+				Current values are:
+				
+				liferay.group.id=${liferay.group.id}
+				liferay.version=${liferay.version}
+				liferay.tomcat.location.dir${liferay.tomcat.location.dir}
+				liferay.war.depenency.dir=${liferay.war.depenency.dir}
+				liferay.global.depenency.dir=${liferay.war.location}
+				liferay.war.location=${liferay.war.location}
+				
+				You also have to choose target dependency
+				
+				deploy or install
+				
+				Example:
+				
+				ant -f build-custom-maven.xml install
+			</echo>
+	</target>
+
+	<target name="modify-poms">
+			<echo>changing groupId com.liferay.portal to ${lp.portal.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]portal&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.portal.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>
+			<echo>changing groupId com.liferay.maven to ${lp.maven.group.id} from pom.xml files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="&lt;groupId&gt;com[.]liferay[.]maven&lt;/groupId&gt;" />
+				<substitution expression="&lt;groupId&gt;${lp.maven.group.id}&lt;/groupId&gt;" />
+				<fileset dir="${project.dir}">
+					<include name="**/pom.xml" />
+				</fileset>
+			</replaceregexp>			
+			
+			<echo>changing groupId com.liferay.* to ${lp.group.id} *.java files</echo>
+			<replaceregexp byline="true" flags="g">
+				<regexp pattern="[&quot;]com[.]liferay(.*?[&quot;])" />
+				<substitution expression="&quot;${lp.group.id}\1" />
+				<fileset dir="${project.dir}">
+					<include name="**/*.java" />
+				</fileset>
+			</replaceregexp>
+			
+		<echo>Change Liferay &lt;version&gt;..&lt;/version&gt; to &lt;version&gt;${liferay.version}&lt;/version&gt; at pom.xml files</echo>
+		<replaceregexp byline="false"  flags="g">
+			<regexp pattern="(?s)(&lt;groupId&gt;liferay.*?&lt;version&gt;).*?-SNAPSHOT&lt;/version&gt;" />
+			<substitution expression="\1${lp.version}&lt;/version&gt;" />
+			<fileset dir="${project.dir}">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>
+		<echo>Change Liferay &lt;liferay.version&gt;..&lt;/liferay.version&gt; to ${liferay.version} at pom.xml files</echo>
+		<replaceregexp byline="true"  flags="g">
+			<regexp pattern="&lt;liferay.version&gt;.*&lt;/liferay.version&gt;" />
+			<substitution expression="&lt;liferay.version&gt;${lp.version}&lt;/liferay.version&gt;" />
+			<fileset dir="${project.dir}">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>
+		<echo>removing maven-gpg-plugin plugin from pom.xml files</echo>
+		<replaceregexp byline="false"  flags="g">
+			<regexp pattern="(?s)&lt;plugin&gt;\s*&lt;artifactId&gt;maven-gpg-plugin&lt;/artifactId&gt;.*?&lt;/plugin&gt;" />
+			<substitution expression="" />
+			<fileset dir="${project.dir}/support-maven">
+				<include name="**/pom.xml" />
+			</fileset>
+		</replaceregexp>					
+	</target>
+	
+</project>
