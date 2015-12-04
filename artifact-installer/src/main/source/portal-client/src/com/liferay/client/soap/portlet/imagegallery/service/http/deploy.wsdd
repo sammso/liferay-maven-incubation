@@ -1,0 +1,64 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from IGImageServiceSoapService WSDL service -->
+
+  <service name="Portlet_IG_IGImageService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.imagegallery.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="IGImageServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://model.imagegallery.portlet.liferay.com,urn:http.service.imagegallery.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_IG_IGImageService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.imagegallery.service.http.Portlet_IG_IGImageServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="IGImageServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getImage" qname="operNS:getImage" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" returnQName="getImageReturn" returnType="rtns:IGImageSoap" xmlns:rtns="http://model.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="imageId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteImage" qname="operNS:deleteImage" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="imageId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteImageByFolderIdAndNameWithExtension" qname="operNS:deleteImageByFolderIdAndNameWithExtension" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="nameWithExtension" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getImageByFolderIdAndNameWithExtension" qname="operNS:getImageByFolderIdAndNameWithExtension" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" returnQName="getImageByFolderIdAndNameWithExtensionReturn" returnType="rtns:IGImageSoap" xmlns:rtns="http://model.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="nameWithExtension" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getImageByLargeImageId" qname="operNS:getImageByLargeImageId" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" returnQName="getImageByLargeImageIdReturn" returnType="rtns:IGImageSoap" xmlns:rtns="http://model.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="largeImageId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getImageBySmallImageId" qname="operNS:getImageBySmallImageId" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" returnQName="getImageBySmallImageIdReturn" returnType="rtns:IGImageSoap" xmlns:rtns="http://model.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="smallImageId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getImages" qname="operNS:getImages" xmlns:operNS="urn:http.service.imagegallery.portlet.liferay.com" returnQName="getImagesReturn" returnType="rtns:ArrayOf_tns2_IGImageSoap" xmlns:rtns="urn:http.service.imagegallery.portlet.liferay.com" returnItemType="tns2:IGImageSoap" xmlns:tns2="http://model.imagegallery.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="deleteImage getImage deleteImageByFolderIdAndNameWithExtension getImages getImageBySmallImageId getImageByFolderIdAndNameWithExtension getImageByLargeImageId"/>
+
+      <typeMapping
+        xmlns:ns="http://model.imagegallery.portlet.liferay.com"
+        qname="ns:IGImageSoap"
+        type="java:com.liferay.client.soap.portlet.imagegallery.model.IGImageSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.imagegallery.portlet.liferay.com"
+        qname="ns:ArrayOf_tns2_IGImageSoap"
+        type="java:com.liferay.client.soap.portlet.imagegallery.model.IGImageSoap[]"
+        innerType="cmp-ns:IGImageSoap" xmlns:cmp-ns="http://model.imagegallery.portlet.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

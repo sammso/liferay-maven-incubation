@@ -1,0 +1,164 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CalEventServiceSoapService WSDL service -->
+
+  <service name="Portlet_Cal_CalEventService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.calendar.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="CalEventServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://service.portal.liferay.com,http://model.portal.liferay.com,urn:http.service.calendar.portlet.liferay.com,http://xml.apache.org/xml-soap,http://cal.kernel.portal.liferay.com,http://model.calendar.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_Cal_CalEventService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.calendar.service.http.Portlet_Cal_CalEventServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="CalEventServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addEvent" qname="operNS:addEvent" xmlns:operNS="urn:http.service.calendar.portlet.liferay.com" returnQName="addEventReturn" returnType="rtns:CalEventSoap" xmlns:rtns="http://model.calendar.portlet.liferay.com" soapAction="" >
+        <parameter qname="title" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="durationHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="durationMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="allDay" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="timeZoneSensitive" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="type" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="repeating" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="recurrence" type="tns:TZSRecurrence" xmlns:tns="http://cal.kernel.portal.liferay.com"/>
+        <parameter qname="remindBy" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="firstReminder" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="secondReminder" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="deleteEvent" qname="operNS:deleteEvent" xmlns:operNS="urn:http.service.calendar.portlet.liferay.com" soapAction="" >
+        <parameter qname="eventId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getEvent" qname="operNS:getEvent" xmlns:operNS="urn:http.service.calendar.portlet.liferay.com" returnQName="getEventReturn" returnType="rtns:CalEventSoap" xmlns:rtns="http://model.calendar.portlet.liferay.com" soapAction="" >
+        <parameter qname="eventId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateEvent" qname="operNS:updateEvent" xmlns:operNS="urn:http.service.calendar.portlet.liferay.com" returnQName="updateEventReturn" returnType="rtns:CalEventSoap" xmlns:rtns="http://model.calendar.portlet.liferay.com" soapAction="" >
+        <parameter qname="eventId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="title" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="startDateMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="endDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="durationHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="durationMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="allDay" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="timeZoneSensitive" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="type" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="repeating" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="recurrence" type="tns:TZSRecurrence" xmlns:tns="http://cal.kernel.portal.liferay.com"/>
+        <parameter qname="remindBy" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="firstReminder" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="secondReminder" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="deleteEvent updateEvent getEvent addEvent"/>
+
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://xml.apache.org/xml-soap"
+        qname="ns:mapItem"
+        type="java:org.apache.xml.xml_soap.MapItem"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.calendar.portlet.liferay.com"
+        qname="ns:ArrayOf_tns2_DayAndPosition"
+        type="java:com.liferay.client.soap.portal.kernel.cal.DayAndPosition[]"
+        innerType="cmp-ns:DayAndPosition" xmlns:cmp-ns="http://cal.kernel.portal.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://cal.kernel.portal.liferay.com"
+        qname="ns:Recurrence"
+        type="java:com.liferay.client.soap.portal.kernel.cal.Recurrence"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.calendar.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://cal.kernel.portal.liferay.com"
+        qname="ns:TZSRecurrence"
+        type="java:com.liferay.client.soap.portal.kernel.cal.TZSRecurrence"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://cal.kernel.portal.liferay.com"
+        qname="ns:DayAndPosition"
+        type="java:com.liferay.client.soap.portal.kernel.cal.DayAndPosition"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.calendar.portlet.liferay.com"
+        qname="ns:CalEventSoap"
+        type="java:com.liferay.client.soap.portlet.calendar.model.CalEventSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://cal.kernel.portal.liferay.com"
+        qname="ns:Duration"
+        type="java:com.liferay.client.soap.portal.kernel.cal.Duration"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.calendar.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_int"
+        type="java:int[]"
+        innerType="cmp-ns:int" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

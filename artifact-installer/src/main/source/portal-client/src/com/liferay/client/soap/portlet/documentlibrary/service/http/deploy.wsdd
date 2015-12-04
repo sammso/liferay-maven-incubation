@@ -1,0 +1,131 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from DLFolderServiceSoapService WSDL service -->
+
+  <service name="Portlet_DL_DLFolderService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.documentlibrary.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="DLFolderServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://service.portal.liferay.com,http://model.portal.liferay.com,http://xml.apache.org/xml-soap,urn:http.service.documentlibrary.portlet.liferay.com,http://model.documentlibrary.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_DL_DLFolderService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.documentlibrary.service.http.Portlet_DL_DLFolderServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="DLFolderServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getFolderId" qname="operNS:getFolderId" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="getFolderIdReturn" returnType="rtns:long" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFolder" qname="operNS:getFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="getFolderReturn" returnType="rtns:DLFolderSoap" xmlns:rtns="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFolder" qname="operNS:getFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="getFolderReturn" returnType="rtns:DLFolderSoap" xmlns:rtns="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addFolder" qname="operNS:addFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="addFolderReturn" returnType="rtns:DLFolderSoap" xmlns:rtns="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="copyFolder" qname="operNS:copyFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="copyFolderReturn" returnType="rtns:DLFolderSoap" xmlns:rtns="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="sourceFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="deleteFolder" qname="operNS:deleteFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteFolder" qname="operNS:deleteFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFolders" qname="operNS:getFolders" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="getFoldersReturn" returnType="rtns:ArrayOf_tns2_DLFolderSoap" xmlns:rtns="urn:http.service.documentlibrary.portlet.liferay.com" returnItemType="tns2:DLFolderSoap" xmlns:tns2="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="hasInheritableLock" qname="operNS:hasInheritableLock" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="hasInheritableLockReturn" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="reIndexSearch" qname="operNS:reIndexSearch" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="companyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="unlockFolder" qname="operNS:unlockFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="lockUuid" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="unlockFolder" qname="operNS:unlockFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="lockUuid" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateFolder" qname="operNS:updateFolder" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="updateFolderReturn" returnType="rtns:DLFolderSoap" xmlns:rtns="http://model.documentlibrary.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="verifyInheritableLock" qname="operNS:verifyInheritableLock" xmlns:operNS="urn:http.service.documentlibrary.portlet.liferay.com" returnQName="verifyInheritableLockReturn" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="lockUuid" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="reIndexSearch copyFolder getFolderId getFolders unlockFolder updateFolder hasInheritableLock getFolder deleteFolder addFolder verifyInheritableLock"/>
+
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.documentlibrary.portlet.liferay.com"
+        qname="ns:ArrayOf_tns2_DLFolderSoap"
+        type="java:com.liferay.client.soap.portlet.documentlibrary.model.DLFolderSoap[]"
+        innerType="cmp-ns:DLFolderSoap" xmlns:cmp-ns="http://model.documentlibrary.portlet.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.documentlibrary.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.documentlibrary.portlet.liferay.com"
+        qname="ns:DLFolderSoap"
+        type="java:com.liferay.client.soap.portlet.documentlibrary.model.DLFolderSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

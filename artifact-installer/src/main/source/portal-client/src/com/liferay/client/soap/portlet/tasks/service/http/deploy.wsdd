@@ -1,0 +1,53 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TasksReviewServiceSoapService WSDL service -->
+
+  <service name="Portlet_Tasks_TasksReviewService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.tasks.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="TasksReviewServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="urn:http.service.tasks.portlet.liferay.com,http://model.tasks.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_Tasks_TasksReviewService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.tasks.service.http.Portlet_Tasks_TasksReviewServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TasksReviewServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="approveReview" qname="operNS:approveReview" xmlns:operNS="urn:http.service.tasks.portlet.liferay.com" returnQName="approveReviewReturn" returnType="rtns:TasksReviewSoap" xmlns:rtns="http://model.tasks.portlet.liferay.com" soapAction="" >
+        <parameter qname="proposalId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="stage" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="rejectReview" qname="operNS:rejectReview" xmlns:operNS="urn:http.service.tasks.portlet.liferay.com" returnQName="rejectReviewReturn" returnType="rtns:TasksReviewSoap" xmlns:rtns="http://model.tasks.portlet.liferay.com" soapAction="" >
+        <parameter qname="proposalId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="stage" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateReviews" qname="operNS:updateReviews" xmlns:operNS="urn:http.service.tasks.portlet.liferay.com" soapAction="" >
+        <parameter qname="proposalId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="userIdsPerStage" type="tns:ArrayOfArrayOf_xsd_long" xmlns:tns="urn:http.service.tasks.portlet.liferay.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="rejectReview updateReviews approveReview"/>
+
+      <arrayMapping
+        xmlns:ns="urn:http.service.tasks.portlet.liferay.com"
+        qname="ns:ArrayOfArrayOf_xsd_long"
+        type="java:long[][]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.tasks.portlet.liferay.com"
+        qname="ns:TasksReviewSoap"
+        type="java:com.liferay.client.soap.portlet.tasks.model.TasksReviewSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

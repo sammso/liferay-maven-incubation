@@ -1,0 +1,106 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SCProductVersionServiceSoapService WSDL service -->
+
+  <service name="Portlet_SC_SCProductVersionService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.softwarecatalog.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="SCProductVersionServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="urn:http.service.softwarecatalog.portlet.liferay.com,http://model.softwarecatalog.portlet.liferay.com,http://service.portal.liferay.com,http://model.portal.liferay.com,http://xml.apache.org/xml-soap"/>
+      <parameter name="wsdlServicePort" value="Portlet_SC_SCProductVersionService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.softwarecatalog.service.http.Portlet_SC_SCProductVersionServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="SCProductVersionServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addProductVersion" qname="operNS:addProductVersion" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" returnQName="addProductVersionReturn" returnType="rtns:SCProductVersionSoap" xmlns:rtns="http://model.softwarecatalog.portlet.liferay.com" soapAction="" >
+        <parameter qname="productEntryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="version" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="changeLog" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="downloadPageURL" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="directDownloadURL" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="testDirectDownloadURL" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="repoStoreArtifact" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="frameworkVersionIds" type="tns:ArrayOf_xsd_long" xmlns:tns="urn:http.service.softwarecatalog.portlet.liferay.com"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="deleteProductVersion" qname="operNS:deleteProductVersion" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" soapAction="" >
+        <parameter qname="productVersionId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getProductVersion" qname="operNS:getProductVersion" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" returnQName="getProductVersionReturn" returnType="rtns:SCProductVersionSoap" xmlns:rtns="http://model.softwarecatalog.portlet.liferay.com" soapAction="" >
+        <parameter qname="productVersionId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getProductVersions" qname="operNS:getProductVersions" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" returnQName="getProductVersionsReturn" returnType="rtns:ArrayOf_tns4_SCProductVersionSoap" xmlns:rtns="urn:http.service.softwarecatalog.portlet.liferay.com" returnItemType="tns2:SCProductVersionSoap" xmlns:tns2="http://model.softwarecatalog.portlet.liferay.com" soapAction="" >
+        <parameter qname="productEntryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="start" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="end" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getProductVersionsCount" qname="operNS:getProductVersionsCount" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" returnQName="getProductVersionsCountReturn" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="productEntryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateProductVersion" qname="operNS:updateProductVersion" xmlns:operNS="urn:http.service.softwarecatalog.portlet.liferay.com" returnQName="updateProductVersionReturn" returnType="rtns:SCProductVersionSoap" xmlns:rtns="http://model.softwarecatalog.portlet.liferay.com" soapAction="" >
+        <parameter qname="productVersionId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="version" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="changeLog" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="downloadPageURL" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="directDownloadURL" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="testDirectDownloadURL" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="repoStoreArtifact" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="frameworkVersionIds" type="tns:ArrayOf_xsd_long" xmlns:tns="urn:http.service.softwarecatalog.portlet.liferay.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="updateProductVersion getProductVersionsCount getProductVersion getProductVersions deleteProductVersion addProductVersion"/>
+
+      <typeMapping
+        xmlns:ns="http://model.softwarecatalog.portlet.liferay.com"
+        qname="ns:SCProductVersionSoap"
+        type="java:com.liferay.client.soap.portlet.softwarecatalog.model.SCProductVersionSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.softwarecatalog.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.softwarecatalog.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_long"
+        type="java:long[]"
+        innerType="cmp-ns:long" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.softwarecatalog.portlet.liferay.com"
+        qname="ns:ArrayOf_tns4_SCProductVersionSoap"
+        type="java:com.liferay.client.soap.portlet.softwarecatalog.model.SCProductVersionSoap[]"
+        innerType="cmp-ns:SCProductVersionSoap" xmlns:cmp-ns="http://model.softwarecatalog.portlet.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

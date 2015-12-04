@@ -1,0 +1,118 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from BlogsEntryServiceSoapService WSDL service -->
+
+  <service name="Portlet_Blogs_BlogsEntryService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.blogs.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="BlogsEntryServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://service.portal.liferay.com,http://model.portal.liferay.com,http://model.blogs.portlet.liferay.com,http://xml.apache.org/xml-soap,urn:http.service.blogs.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_Blogs_BlogsEntryService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.blogs.service.http.Portlet_Blogs_BlogsEntryServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="BlogsEntryServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addEntry" qname="operNS:addEntry" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="addEntryReturn" returnType="rtns:BlogsEntrySoap" xmlns:rtns="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="title" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="content" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="draft" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="allowTrackbacks" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="trackbacks" type="tns:ArrayOf_xsd_string" xmlns:tns="urn:http.service.blogs.portlet.liferay.com"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="getEntry" qname="operNS:getEntry" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getEntryReturn" returnType="rtns:BlogsEntrySoap" xmlns:rtns="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="entryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getEntry" qname="operNS:getEntry" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getEntryReturn" returnType="rtns:BlogsEntrySoap" xmlns:rtns="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="urlTitle" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteEntry" qname="operNS:deleteEntry" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="entryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateEntry" qname="operNS:updateEntry" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="updateEntryReturn" returnType="rtns:BlogsEntrySoap" xmlns:rtns="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="entryId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="title" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="content" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateMonth" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateDay" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateYear" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateHour" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="displayDateMinute" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="draft" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="allowTrackbacks" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="trackbacks" type="tns:ArrayOf_xsd_string" xmlns:tns="urn:http.service.blogs.portlet.liferay.com"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="getCompanyEntries" qname="operNS:getCompanyEntries" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getCompanyEntriesReturn" returnType="rtns:ArrayOf_tns4_BlogsEntrySoap" xmlns:rtns="urn:http.service.blogs.portlet.liferay.com" returnItemType="tns2:BlogsEntrySoap" xmlns:tns2="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="companyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="max" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getGroupEntries" qname="operNS:getGroupEntries" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getGroupEntriesReturn" returnType="rtns:ArrayOf_tns4_BlogsEntrySoap" xmlns:rtns="urn:http.service.blogs.portlet.liferay.com" returnItemType="tns2:BlogsEntrySoap" xmlns:tns2="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="max" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getGroupsEntries" qname="operNS:getGroupsEntries" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getGroupsEntriesReturn" returnType="rtns:ArrayOf_tns4_BlogsEntrySoap" xmlns:rtns="urn:http.service.blogs.portlet.liferay.com" returnItemType="tns2:BlogsEntrySoap" xmlns:tns2="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="companyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="max" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getOrganizationEntries" qname="operNS:getOrganizationEntries" xmlns:operNS="urn:http.service.blogs.portlet.liferay.com" returnQName="getOrganizationEntriesReturn" returnType="rtns:ArrayOf_tns4_BlogsEntrySoap" xmlns:rtns="urn:http.service.blogs.portlet.liferay.com" returnItemType="tns2:BlogsEntrySoap" xmlns:tns2="http://model.blogs.portlet.liferay.com" soapAction="" >
+        <parameter qname="organizationId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="max" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getEntry getOrganizationEntries updateEntry getGroupsEntries addEntry getGroupEntries deleteEntry getCompanyEntries"/>
+
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.blogs.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.blogs.portlet.liferay.com"
+        qname="ns:ArrayOf_tns4_BlogsEntrySoap"
+        type="java:com.liferay.client.soap.portlet.blogs.model.BlogsEntrySoap[]"
+        innerType="cmp-ns:BlogsEntrySoap" xmlns:cmp-ns="http://model.blogs.portlet.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.blogs.portlet.liferay.com"
+        qname="ns:BlogsEntrySoap"
+        type="java:com.liferay.client.soap.portlet.blogs.model.BlogsEntrySoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

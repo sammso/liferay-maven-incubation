@@ -1,0 +1,88 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TagsVocabularyServiceSoapService WSDL service -->
+
+  <service name="Portlet_Tags_TagsVocabularyService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.tags.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="TagsVocabularyServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="urn:http.service.tags.portlet.liferay.com,http://service.portal.liferay.com,http://model.portal.liferay.com,http://model.tags.portlet.liferay.com,http://xml.apache.org/xml-soap"/>
+      <parameter name="wsdlServicePort" value="Portlet_Tags_TagsVocabularyService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.tags.service.http.Portlet_Tags_TagsVocabularyServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TagsVocabularyServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getVocabulary" qname="operNS:getVocabulary" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" returnQName="getVocabularyReturn" returnType="rtns:TagsVocabularySoap" xmlns:rtns="http://model.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="vocabularyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addVocabulary" qname="operNS:addVocabulary" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" returnQName="addVocabularyReturn" returnType="rtns:TagsVocabularySoap" xmlns:rtns="http://model.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="folksonomy" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="deleteVocabulary" qname="operNS:deleteVocabulary" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="vocabularyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getCompanyVocabularies" qname="operNS:getCompanyVocabularies" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" returnQName="getCompanyVocabulariesReturn" returnType="rtns:ArrayOf_tns2_TagsVocabularySoap" xmlns:rtns="urn:http.service.tags.portlet.liferay.com" returnItemType="tns2:TagsVocabularySoap" xmlns:tns2="http://model.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="companyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="folksonomy" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getGroupVocabularies" qname="operNS:getGroupVocabularies" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" returnQName="getGroupVocabulariesReturn" returnType="rtns:ArrayOf_tns2_TagsVocabularySoap" xmlns:rtns="urn:http.service.tags.portlet.liferay.com" returnItemType="tns2:TagsVocabularySoap" xmlns:tns2="http://model.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="groupId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="folksonomy" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateVocabulary" qname="operNS:updateVocabulary" xmlns:operNS="urn:http.service.tags.portlet.liferay.com" returnQName="updateVocabularyReturn" returnType="rtns:TagsVocabularySoap" xmlns:rtns="http://model.tags.portlet.liferay.com" soapAction="" >
+        <parameter qname="vocabularyId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="folksonomy" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="addVocabulary deleteVocabulary updateVocabulary getGroupVocabularies getCompanyVocabularies getVocabulary"/>
+
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.tags.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.tags.portlet.liferay.com"
+        qname="ns:ArrayOf_tns2_TagsVocabularySoap"
+        type="java:com.liferay.client.soap.portlet.tags.model.TagsVocabularySoap[]"
+        innerType="cmp-ns:TagsVocabularySoap" xmlns:cmp-ns="http://model.tags.portlet.liferay.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.tags.portlet.liferay.com"
+        qname="ns:TagsVocabularySoap"
+        type="java:com.liferay.client.soap.portlet.tags.model.TagsVocabularySoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

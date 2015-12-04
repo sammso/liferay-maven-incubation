@@ -1,0 +1,77 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from BookmarksFolderServiceSoapService WSDL service -->
+
+  <service name="Portlet_Bookmarks_BookmarksFolderService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.bookmarks.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="BookmarksFolderServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://model.bookmarks.portlet.liferay.com,http://service.portal.liferay.com,http://model.portal.liferay.com,urn:http.service.bookmarks.portlet.liferay.com,http://xml.apache.org/xml-soap"/>
+      <parameter name="wsdlServicePort" value="Portlet_Bookmarks_BookmarksFolderService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.bookmarks.service.http.Portlet_Bookmarks_BookmarksFolderServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="BookmarksFolderServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getFolder" qname="operNS:getFolder" xmlns:operNS="urn:http.service.bookmarks.portlet.liferay.com" returnQName="getFolderReturn" returnType="rtns:BookmarksFolderSoap" xmlns:rtns="http://model.bookmarks.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addFolder" qname="operNS:addFolder" xmlns:operNS="urn:http.service.bookmarks.portlet.liferay.com" returnQName="addFolderReturn" returnType="rtns:BookmarksFolderSoap" xmlns:rtns="http://model.bookmarks.portlet.liferay.com" soapAction="" >
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <operation name="deleteFolder" qname="operNS:deleteFolder" xmlns:operNS="urn:http.service.bookmarks.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="updateFolder" qname="operNS:updateFolder" xmlns:operNS="urn:http.service.bookmarks.portlet.liferay.com" returnQName="updateFolderReturn" returnType="rtns:BookmarksFolderSoap" xmlns:rtns="http://model.bookmarks.portlet.liferay.com" soapAction="" >
+        <parameter qname="folderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="parentFolderId" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="name" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="description" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="mergeWithParentFolder" type="tns:boolean" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="serviceContext" type="tns:ServiceContext" xmlns:tns="http://service.portal.liferay.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="updateFolder getFolder deleteFolder addFolder"/>
+
+      <typeMapping
+        xmlns:ns="http://model.portal.liferay.com"
+        qname="ns:PortletPreferencesIds"
+        type="java:com.liferay.client.soap.portal.model.PortletPreferencesIds"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model.bookmarks.portlet.liferay.com"
+        qname="ns:BookmarksFolderSoap"
+        type="java:com.liferay.client.soap.portlet.bookmarks.model.BookmarksFolderSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="urn:http.service.bookmarks.portlet.liferay.com"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://service.portal.liferay.com"
+        qname="ns:ServiceContext"
+        type="java:com.liferay.client.soap.portal.service.ServiceContext"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

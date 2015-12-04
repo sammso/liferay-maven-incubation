@@ -1,0 +1,41 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ExpandoValueServiceSoapService WSDL service -->
+
+  <service name="Portlet_Expando_ExpandoValueService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:http.service.expando.portlet.liferay.com"/>
+      <parameter name="wsdlServiceElement" value="ExpandoValueServiceSoapService"/>
+      <parameter name="schemaUnqualified" value="http://model.expando.portlet.liferay.com"/>
+      <parameter name="wsdlServicePort" value="Portlet_Expando_ExpandoValueService"/>
+      <parameter name="className" value="com.liferay.client.soap.portlet.expando.service.http.Portlet_Expando_ExpandoValueServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ExpandoValueServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addValue" qname="operNS:addValue" xmlns:operNS="urn:http.service.expando.portlet.liferay.com" returnQName="addValueReturn" returnType="rtns:ExpandoValueSoap" xmlns:rtns="http://model.expando.portlet.liferay.com" soapAction="" >
+        <parameter qname="className" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="tableName" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="columnName" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="classPK" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="data" type="tns:anyType" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="addValue"/>
+
+      <typeMapping
+        xmlns:ns="http://model.expando.portlet.liferay.com"
+        qname="ns:ExpandoValueSoap"
+        type="java:com.liferay.client.soap.portlet.expando.model.ExpandoValueSoap"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>
